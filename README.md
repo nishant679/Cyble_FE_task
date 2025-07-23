@@ -1,69 +1,65 @@
-# React + TypeScript + Vite
+# Cyble Inventory App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Cyble Inventory App** is a lightweight, scalable inventory management system built with modern web technologies including React, TypeScript, Zustand, React Query, and shadcn/ui. It allows users to manage a product catalog with real-time filtering, pagination, stock-level classification, and validation logic.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📌 Overview
 
-## Expanding the ESLint configuration
+This application provides a user-friendly interface for managing product data, including features such as:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Product listing with client-side filtering
+- Pagination with dynamic API integration
+- Form-driven product creation with validation rules
+- Stock availability management based on quantity
+- State synchronization using Zustand and React Query
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 🔧 Technologies Used
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+| Stack             | Description                                  |
+|------------------|----------------------------------------------|
+| **React**         | Frontend UI framework                        |
+| **TypeScript**    | Strong typing for predictable code           |
+| **React Query**   | API data fetching and caching                |
+| **Zustand**       | Global state management                      |
+| **React Hook Form** | Lightweight form library with validation  |
+| **Zod**           | Schema validation for form data              |
+| **shadcn/ui**     | UI components built on Radix and Tailwind    |
+| **Tailwind CSS**  | Utility-first CSS framework                  |
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📁 Project Structure
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+src/
+├── components/ # Shared UI elements
+├── features/
+│ └── products/ # Product-specific logic and views
+├── store/ # Zustand state stores
+├── types/ # TypeScript interfaces and types
+├── pages/ # Route-level components
+└── App.tsx / main.tsx # Entry point and routing
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js ≥ 18
+- npm or yarn
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/cyble-inventory-app.git
+cd cyble-inventory-app
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
