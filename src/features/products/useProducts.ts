@@ -1,50 +1,51 @@
-import type { ProductInterface } from '../../types/types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useProductStore } from '../../store/useProductStore';
 import { useProductFilterStore } from '../../store/useProductFilterStore';
-// import { Product } from '../../types/product';
 
-const fetchProducts = async (): Promise<ProductInterface[]> => {
-  const res = await fetch('https://dummyjson.com/products');
-  if (!res.ok) {
-    throw new Error(`Failed to fetch products: ${res.statusText}`);
-  }
-  const data: { products: ProductInterface[] } = await res.json();
-  return data.products;
+const fetchProducts = async ({ page, limit }: { page: number; limit: number }) => {
+  const skip = (page - 1) * limit;
+  const res = await fetch(`https://dummyjson.com/products?limit=${limit}&skip=${skip}`);
+  if (!res.ok) throw new Error(`Failed to fetch: ${res.statusText}`);
+  return res.json();
 };
 
 export const useProducts = () => {
+  const [page, setPage] = useState(1);
+  const limit = 10;
+
   const { search, category } = useProductFilterStore();
-  const {  products, setProducts } = useProductStore();
+  const { apiProducts, localProducts, setApiProducts } = useProductStore();
 
   const {
-    data: apiProducts = [],
+    data,
     isLoading,
     error,
-  } = useQuery<ProductInterface[], Error>({
-    queryKey: ['products'],
-    queryFn: fetchProducts,
-    staleTime: 5 * 60 * 1000,
+  } = useQuery({
+    queryKey: ['products', page],
+    queryFn: () => fetchProducts({ page, limit }),
+    staleTime: 1000 * 60 * 5,
   });
 
-    useEffect(() => {
-        if (products.length === 0 && apiProducts.length > 0) {
-        setProducts(apiProducts);
-        }
-    }, [apiProducts, products.length, setProducts]);
-  
+  useEffect(() => {
+    if (data?.products) {
+      setApiProducts(data.products);
+    }
+  }, [data?.products]);
 
-  const filteredProducts = products
+  const allProducts = [...localProducts, ...apiProducts];
+
+  const filteredProducts = allProducts
     .filter((p) => p.title.toLowerCase().includes(search.toLowerCase()))
-    .filter((p) =>
-      category ? p.category.toLowerCase() === category.toLowerCase() : true
-    );
+    .filter((p) => (category ? p.category.toLowerCase() === category.toLowerCase() : true));
 
   return {
     data: filteredProducts,
     isLoading,
     error,
-    categories: [...new Set(products.map((p) => p.category))],
+    page,
+    setPage,
+    totalPages: Math.ceil((data?.total || 0) / limit),
+    categories: [...new Set(allProducts.map((p) => p.category))],
   };
 };
