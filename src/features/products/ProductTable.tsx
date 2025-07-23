@@ -13,7 +13,7 @@ const { data, isLoading, page, setPage, totalPages, error } = useProducts();
   if (isLoading) {
     return (
       <div className="space-y-2">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(10)].map((_, i) => (
           <Skeleton key={i} className="h-10 w-full" />
         ))}
       </div>
@@ -43,9 +43,7 @@ const { data, isLoading, page, setPage, totalPages, error } = useProducts();
             <TableCell>{product.category}</TableCell>
             <TableCell>${product.price}</TableCell>
             <TableCell>{product.stock}</TableCell>
-            <TableCell>
-              {product.stock > 0 ? 'In Stock' : 'Out of Stock'}
-            </TableCell>
+            <TableCell>{product.availabilityStatus}</TableCell>
           </TableRow>
         ))}
       </TableBody>
