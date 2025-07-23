@@ -26,14 +26,14 @@ const { data, isLoading, page, setPage, totalPages, error } = useProducts();
 
   return (
     <>
-    <Table>
+    <Table className='border-2 border-solid'>
       <TableHeader>
         <TableRow>
-          <TableHead>Product Name</TableHead>
-          <TableHead>Category</TableHead>
-          <TableHead>Price</TableHead>
-          <TableHead>Stock</TableHead>
-          <TableHead>Status</TableHead>
+          <TableHead className='bg-black text-white'>Product Name</TableHead>
+          <TableHead className='bg-black text-white'>Category</TableHead>
+          <TableHead className='bg-black text-white'>Price</TableHead>
+          <TableHead className='bg-black text-white'>Stock</TableHead>
+          <TableHead className='bg-black text-white'>Status</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

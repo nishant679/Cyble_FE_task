@@ -12,9 +12,9 @@ export default function AppLayout() {
   };
 
   return (
-    <div className="container mx-14 py-6">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <Tabs value={activeTab} onValueChange={handleTabChange}>
-        <TabsList className="mb-6">
+        <TabsList className="mb-6 mt-6 m-6">
           <TabsTrigger value="list">Product List</TabsTrigger>
           <TabsTrigger value="add">Add Product</TabsTrigger>
         </TabsList>
